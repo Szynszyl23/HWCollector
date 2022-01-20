@@ -14,7 +14,8 @@
         app:layout_constraintRight_toLeftOf="@id/ver1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/hor1"
-        android:layout_margin="2dip"/>
+        android:layout_margin="2dip"
+        />
 
     <Button
         android:id="@+id/finishBT"
@@ -135,40 +136,64 @@
                 android:textSize="27sp"
                 android:textColor="#1f1f1f"
                 />
-
-            <ImageButton
-                android:id="@+id/mainColor"
+            <RelativeLayout
+                android:id="@+id/mainColorBackground"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
+                android:background="#1f1f1f"
                 android:layout_below="@id/colors"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="6dp">
+                <ImageButton
+                    android:id="@+id/mainColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
                 />
+            </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/secondColor"
+             <RelativeLayout
+                android:id="@+id/secondColorBackground"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:layout_toEndOf="@id/mainColor"
-                android:layout_alignBottom="@id/mainColor"
-                android:layout_marginStart="6dp"
+                android:background="#1f1f1f"
+                android:layout_toEndOf="@id/mainColorBackground"
+                android:layout_alignBottom="@id/mainColorBackground"
+                android:layout_marginStart="6dp">
+                <ImageButton
+                    android:id="@+id/secondColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
+                    />
+             </RelativeLayout>
 
+             <RelativeLayout
+                 android:id="@+id/thirdColorBackground"
+                 android:layout_width="125dp"
+                 android:layout_height="125dp"
+                 android:background="#1f1f1f"
+                 android:layout_toEndOf="@id/secondColorBackground"
+                 android:layout_alignBottom="@id/mainColorBackground"
+                 android:layout_marginStart="6dp">
+
+                <ImageButton
+                    android:id="@+id/thirdColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
                 />
-            <ImageButton
-                android:id="@+id/thirdColor"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_toEndOf="@id/secondColor"
-                android:layout_alignBottom="@id/mainColor"
-                android:layout_marginStart="6dp"
-                />
+             </RelativeLayout>
 
             <TextView
                 android:id="@+id/textMainColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mainColor"
-                android:layout_alignLeft="@id/mainColor"
+                android:layout_below="@id/mainColorBackground"
+                android:layout_alignLeft="@id/mainColorBackground"
                 android:text="MAIN COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -179,8 +204,8 @@
                 android:id="@+id/textSecondColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/secondColor"
-                android:layout_alignStart="@id/secondColor"
+                android:layout_below="@id/secondColorBackground"
+                android:layout_alignStart="@id/secondColorBackground"
                 android:text="2ND COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -191,8 +216,8 @@
                 android:id="@+id/textThirdColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/thirdColor"
-                android:layout_alignStart="@id/thirdColor"
+                android:layout_below="@id/thirdColorBackground"
+                android:layout_alignStart="@id/thirdColorBackground"
                 android:text="3RD COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -208,7 +233,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
-                android:layout_toEndOf="@id/secondColor"
+                android:layout_toEndOf="@id/secondColorBackground"
                 android:text="ZAMAC"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -258,39 +283,63 @@
                 android:textColor="#1f1f1f"
                 />
 
-            <ImageButton
-                android:id="@+id/tireColor"
+            <RelativeLayout
+                android:id="@+id/tireColorBackground"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
+                android:background="#1f1f1f"
                 android:layout_below="@id/wheelColors"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="6dp">
+                <ImageButton
+                    android:id="@+id/tireColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
                 />
+            </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/wheelColor"
+            <RelativeLayout
+                android:id="@+id/wheelColorBackground"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:layout_toEndOf="@id/tireColor"
-                android:layout_alignBottom="@id/tireColor"
-                android:layout_marginStart="6dp"
-
+                android:background="#1f1f1f"
+                android:layout_toEndOf="@id/tireColorBackground"
+                android:layout_alignBottom="@id/tireColorBackground"
+                android:layout_marginStart="6dp">
+                <ImageButton
+                    android:id="@+id/wheelColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
                 />
-            <ImageButton
-                android:id="@+id/rimColor"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rimColorBackground"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:layout_toEndOf="@id/wheelColor"
-                android:layout_alignBottom="@id/tireColor"
-                android:layout_marginStart="6dp"
+                android:background="#1f1f1f"
+                android:layout_toEndOf="@id/wheelColorBackground"
+                android:layout_alignBottom="@id/tireColorBackground"
+                android:layout_marginStart="6dp">
+                <ImageButton
+                    android:id="@+id/rimColor"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
                 />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textTireColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tireColor"
-                android:layout_alignLeft="@id/tireColor"
+                android:layout_below="@id/tireColorBackground"
+                android:layout_alignLeft="@id/tireColorBackground"
                 android:text="TIRE COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -301,8 +350,8 @@
                 android:id="@+id/textWheelColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/wheelColor"
-                android:layout_alignStart="@id/wheelColor"
+                android:layout_below="@id/wheelColorBackground"
+                android:layout_alignStart="@id/wheelColorBackground"
                 android:text="WHEEL COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"
@@ -313,8 +362,8 @@
                 android:id="@+id/textRimColor"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rimColor"
-                android:layout_alignStart="@id/rimColor"
+                android:layout_below="@id/rimColorBackground"
+                android:layout_alignStart="@id/rimColorBackground"
                 android:text="RIM COLOR"
                 android:textSize="15sp"
                 android:textAlignment="center"

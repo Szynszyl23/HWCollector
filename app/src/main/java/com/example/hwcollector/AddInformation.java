@@ -2,6 +2,7 @@ package com.example.hwcollector;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +16,16 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 public class AddInformation extends AppCompatActivity {
 
    TextView letterCounter, letterCounter2;
    EditText addName, addWheelType;
    Spinner yearSpinner;
-   ImageButton backButton;
+   ImageButton backButton, mainColorButton, secondColorButton, thirdColorButton, tireColorButton, wheelsColorButton, rimColorButton;
    String[] arrayList;
+   int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,28 @@ public class AddInformation extends AppCompatActivity {
         LetterCounters();
         CreateList();
         CreateArrayAdapter();
-        backButton.setOnClickListener(v -> alertDialog());                                           //This part assigns OnClickListener to a button so it can work as intended
+        AssignColors();
+        ButtonListeners();
+    }
+
+    private void AssignColors() {
+        mainDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+        secondDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+        thirdDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+        tireDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+        wheelDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+        rimDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
+    }
+
+    //This part of code brings together all button listeners
+    private void ButtonListeners() {
+        backButton.setOnClickListener(v -> alertDialog());
+        mainColorButton.setOnClickListener(view -> ShowMainColorPicker());
+        secondColorButton.setOnClickListener(view -> ShowSecondColorPicker());
+        thirdColorButton.setOnClickListener(view -> ShowThirdColorPicker());
+        tireColorButton.setOnClickListener(view -> ShowTireColorPicker());
+        wheelsColorButton.setOnClickListener(view -> ShowWheelColorPicker());
+        rimColorButton.setOnClickListener(view -> ShowRimColorPicker());
     }
 
     private void GetComponents() {
@@ -41,6 +66,120 @@ public class AddInformation extends AppCompatActivity {
         addWheelType = findViewById(R.id.wheelTypeEditText);
         yearSpinner = findViewById(R.id.yearSpinner);
         backButton = findViewById(R.id.backBT);
+        mainColorButton= findViewById(R.id.mainColor);
+        secondColorButton= findViewById(R.id.secondColor);
+        thirdColorButton= findViewById(R.id.thirdColor);
+        tireColorButton= findViewById(R.id.tireColor);
+        wheelsColorButton= findViewById(R.id.wheelColor);
+        rimColorButton= findViewById(R.id.rimColor);
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowMainColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mainDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                mainDefaultColor = color;
+                mainColorButton.setBackgroundColor(mainDefaultColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowSecondColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, secondDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                secondDefaultColor = color;
+                secondColorButton.setBackgroundColor(secondDefaultColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowThirdColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, thirdDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                thirdDefaultColor = color;
+                thirdColorButton.setBackgroundColor(thirdDefaultColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowTireColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, tireDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                tireDefaultColor = color;
+                tireColorButton.setBackgroundColor(tireDefaultColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowWheelColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, wheelDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                wheelDefaultColor = color;
+                wheelsColorButton.setBackgroundColor(wheelDefaultColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
+    private void ShowRimColorPicker()
+    {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, rimDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                rimDefaultColor = color;
+                rimColorButton.setBackgroundColor(rimDefaultColor);
+            }
+        });
+        colorPicker.show();
     }
 
     //This part of code manages letter counting bellow all EditTexts that have limit on possible characters
