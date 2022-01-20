@@ -72,16 +72,16 @@
                 android:gravity="center"
                 />
 
-            <EditText
-                android:id="@+id/seriesNumberEditText"
-                android:layout_width="50dp"
+            <Spinner
+                android:id="@+id/seriesNumberSpinner"
+                android:layout_width="100dp"
                 android:layout_height="43dp"
-                android:layout_alignLeft="@id/seriesNumber"
+                android:layout_alignStart="@id/seriesNumber"
                 android:layout_alignTop="@id/seriesNumber"
-                android:layout_marginLeft="-30dp"
+                android:layout_marginStart="-80dp"
                 android:layout_marginBottom="0dp"
-                android:maxLength="3"
                 android:textSize="20sp"
+                android:textAlignment="center"
                 />
 
             <EditText
@@ -368,6 +368,49 @@
                 android:textSize="15sp"
                 android:textAlignment="center"
                 android:textColor="#1f1f1f"
+                />
+
+            <TextView
+                android:id="@+id/seriesNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textRimColor"
+                android:layout_margin="10dp"
+                android:text="SERIES"
+                android:textSize="27sp"
+                android:textColor="#1f1f1f"
+                />
+
+            <EditText
+                android:id="@+id/seriesNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/seriesNameText"
+                android:layout_toEndOf="@id/seriesTypeSpinner"
+                android:layout_margin="10dp"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="22sp"
+                android:textColor="#1f1f1f"
+                />
+
+            <TextView
+                android:id="@+id/lettersCounter3"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/seriesNameEditText"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/seriesTypeSpinner"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/seriesNameText"
+                android:layout_margin="10dp"
                 />
 
         </RelativeLayout>
