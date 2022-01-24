@@ -1,10 +1,12 @@
 package com.example.hwcollector;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,15 +27,16 @@ public class AddInformation extends AppCompatActivity {
    TextView letterCounter, letterCounter2, letterCounter3;
    EditText addName, addWheelType, addSeriesName;
    Spinner yearSpinner, seriesNumberSpinner, seriesTypeSpinner;
-   ImageButton backButton, mainColorButton, secondColorButton, thirdColorButton, tireColorButton, wheelsColorButton, rimColorButton;
+   ImageButton backButton, mainColorButton, secondColorButton, thirdColorButton, tireColorButton, wheelsColorButton, rimColorButton, selectFromGalleryButton;
    Button finishAndSave;
    String[] arrayYearList, arraySeriesList, arraySeriesTypeList;
-   int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor;
+   int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, SELECT_PICTURE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_information);
+
         GetComponents();
         LetterCounters();
         CreateArrayLists();
@@ -44,6 +47,7 @@ public class AddInformation extends AppCompatActivity {
         ButtonListeners();
     }
 
+    //This part of code assigns white color as starting color of all ImageButtons responsible for color selecting
     private void AssignColors() {
         mainDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
         secondDefaultColor = ContextCompat.getColor(AddInformation.this, R.color.white);
@@ -63,6 +67,7 @@ public class AddInformation extends AppCompatActivity {
         wheelsColorButton.setOnClickListener(view -> ShowWheelColorPicker());
         rimColorButton.setOnClickListener(view -> ShowRimColorPicker());
         finishAndSave.setOnClickListener(view -> FinishAndSave());
+        selectFromGalleryButton.setOnClickListener(view -> SelectFromGallery());
     }
 
     private void GetComponents() {
@@ -76,6 +81,7 @@ public class AddInformation extends AppCompatActivity {
         seriesNumberSpinner = findViewById(R.id.seriesNumberSpinner);
         seriesTypeSpinner = findViewById(R.id.seriesTypeSpinner);
         backButton = findViewById(R.id.backBT);
+        selectFromGalleryButton = findViewById(R.id.selectFromGalleryButton);
         mainColorButton= findViewById(R.id.mainColor);
         secondColorButton= findViewById(R.id.secondColor);
         thirdColorButton= findViewById(R.id.thirdColor);
@@ -96,8 +102,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                mainDefaultColor = color;
-                mainColorButton.setBackgroundColor(mainDefaultColor);
+                mainDefaultColor = color;                                                           //This part assigns selected color in place of previous one
+                mainColorButton.setBackgroundColor(mainDefaultColor);                               //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -114,8 +120,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                secondDefaultColor = color;
-                secondColorButton.setBackgroundColor(secondDefaultColor);
+                secondDefaultColor = color;                                                         //This part assigns selected color in place of previous one
+                secondColorButton.setBackgroundColor(secondDefaultColor);                           //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -132,8 +138,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                thirdDefaultColor = color;
-                thirdColorButton.setBackgroundColor(thirdDefaultColor);
+                thirdDefaultColor = color;                                                          //This part assigns selected color in place of previous one
+                thirdColorButton.setBackgroundColor(thirdDefaultColor);                             //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -150,8 +156,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                tireDefaultColor = color;
-                tireColorButton.setBackgroundColor(tireDefaultColor);
+                tireDefaultColor = color;                                                           //This part assigns selected color in place of previous one
+                tireColorButton.setBackgroundColor(tireDefaultColor);                               //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -168,8 +174,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                wheelDefaultColor = color;
-                wheelsColorButton.setBackgroundColor(wheelDefaultColor);
+                wheelDefaultColor = color;                                                          //This part assigns selected color in place of previous one
+                wheelsColorButton.setBackgroundColor(wheelDefaultColor);                            //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -186,8 +192,8 @@ public class AddInformation extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                rimDefaultColor = color;
-                rimColorButton.setBackgroundColor(rimDefaultColor);
+                rimDefaultColor = color;                                                            //This part assigns selected color in place of previous one
+                rimColorButton.setBackgroundColor(rimDefaultColor);                                 //This part changes background color of ImageButton to previously assigned one
             }
         });
         colorPicker.show();
@@ -257,7 +263,7 @@ public class AddInformation extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            letterCounter.setText(50 - editable.toString().length() + "/50");
+            letterCounter.setText(50 - editable.toString().length() + "/50");                       //This part shows numbers from 50 to 0 updating after every character typed or deleted
         }
     };
 
@@ -275,7 +281,7 @@ public class AddInformation extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            letterCounter2.setText(50 - editable.toString().length() + "/50");
+            letterCounter2.setText(50 - editable.toString().length() + "/50");                      //This part shows numbers from 50 to 0 updating after every character typed or deleted
         }
     };
 
@@ -293,7 +299,7 @@ public class AddInformation extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            letterCounter3.setText(50 - editable.toString().length() + "/50");
+            letterCounter3.setText(50 - editable.toString().length() + "/50");                      //This part shows numbers from 50 to 0 updating after every character typed or deleted
         }
     };
 
@@ -302,9 +308,9 @@ public class AddInformation extends AppCompatActivity {
     //This function creates list of strings and populate it with Series types
     private void CreateArrayLists()
     {
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        int howManyYears = thisYear - 1967;
-        int actualYear = 1968;
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);                                   //This part gets actual year from phone's calendar
+        int firstYear = 1968;                                                                       //This part puts 1968 as first year in list
+        int howManyYears = thisYear - 1967;                                                         //This part determines how many years will be in list
         arraySeriesList = new String[250];
         arrayYearList = new String[howManyYears];
         arraySeriesTypeList = new String[5];
@@ -313,11 +319,11 @@ public class AddInformation extends AppCompatActivity {
         arraySeriesTypeList[2] = "TH";
         arraySeriesTypeList[3] = "STH";
         arraySeriesTypeList[4] = "RLC";
-            for( int i = 0; i < howManyYears; i++)
+            for( int i = 0; i < howManyYears; i++)                                                  //This loop populates list arrayYearList
             {
-                arrayYearList[i] = String.valueOf(actualYear + i);
+                arrayYearList[i] = String.valueOf(firstYear + i);
             }
-            for( int i = 0; i<250; i++)
+            for( int i = 0; i<250; i++)                                                             //This loop populates list arraySeriesList
             {
                 arraySeriesList[i] = String.valueOf(i + 1);
             }
@@ -327,11 +333,11 @@ public class AddInformation extends AppCompatActivity {
     //User can't save information while any of EditTexts is empty
     private void FinishAndSave()
     {
-        if(addName.length() > 0)
+        if(addName.length() > 0)                                                                    //This if statement checks if there are more letters than 0 in addName
         {
-            if(addWheelType.length() > 0)
+            if(addWheelType.length() > 0)                                                           //This if statement checks if there are more letters than 0 in addWheelType
             {
-                if (addSeriesName.length() > 0)
+                if (addSeriesName.length() > 0)                                                     //This if statement checks if there are more letters than 0 in addSeriesName
                 {
                     Intent intent = new Intent(AddInformation.this, ListView.class);
                     startActivity(intent);
@@ -347,6 +353,32 @@ public class AddInformation extends AppCompatActivity {
             else {addWheelType.setError("Space empty"); Toast.makeText(AddInformation.this, "Wheel type is empty", Toast.LENGTH_SHORT).show();}
         }
         else {addName.setError("Space empty"); Toast.makeText(AddInformation.this, "Model name is empty", Toast.LENGTH_SHORT).show();}
+    }
+
+    private void SelectFromGallery()
+    {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    selectFromGalleryButton.setImageURI(selectedImageUri);
+                }
+            }
+        }
     }
     }
 
