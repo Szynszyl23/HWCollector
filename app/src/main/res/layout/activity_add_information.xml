@@ -230,7 +230,7 @@
                 />
 
             <CheckBox
-                android:id="@+id/zamacRadioButton"
+                android:id="@+id/isZamac"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/colors"

@@ -3,21 +3,28 @@ package com.example.hwcollector;
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
@@ -30,7 +37,10 @@ public class AddInformation extends AppCompatActivity {
    ImageButton backButton, mainColorButton, secondColorButton, thirdColorButton, tireColorButton, wheelsColorButton, rimColorButton, selectFromGalleryButton;
    Button finishAndSave;
    String[] arrayYearList, arraySeriesList, arraySeriesTypeList;
+   CheckBox isZamac;
    int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, SELECT_PICTURE = 200;
+   Bitmap imageBitmap;
+   byte[] imageByteArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +99,7 @@ public class AddInformation extends AppCompatActivity {
         wheelsColorButton= findViewById(R.id.wheelColor);
         rimColorButton= findViewById(R.id.rimColor);
         finishAndSave = findViewById(R.id.finishBT);
+        isZamac = findViewById(R.id.isZamac);
     }
 
     //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
@@ -209,7 +220,7 @@ public class AddInformation extends AppCompatActivity {
         addSeriesName.addTextChangedListener(editTextWatcherForSeriesName);
     }
 
-    //This function creates ArrayAdapter that allows to populate assigned Spinner with records from arrayList
+    //This function creates ArrayAdapter that allows to populate yearSpinner with records from arrayYearList
     private void CreateYearArrayAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arrayYearList);
@@ -217,7 +228,7 @@ public class AddInformation extends AppCompatActivity {
         yearSpinner.setAdapter(adapter);
     }
 
-    //This function creates ArrayAdapter that allows to populate assigned Spinner with records from arrayList
+    //This function creates ArrayAdapter that allows to populate seriesNumberSpinner with records from arraySeriesList
     private void CreateSeriesArrayAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySeriesList);
@@ -225,6 +236,7 @@ public class AddInformation extends AppCompatActivity {
         seriesNumberSpinner.setAdapter(adapter);
     }
 
+    //This function creates ArrayAdapter that allows to populate seriesTypeSpinner with records from arraySeriesTypeList
     private void CreateSeriesTypeArrayAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySeriesTypeList);
@@ -303,9 +315,11 @@ public class AddInformation extends AppCompatActivity {
         }
     };
 
-    //This function creates list of strings and populate it with years from 1968 to the current one
-    //This function creates list of strings and populate it with numbers from 1 to 250
-    //This function creates list of strings and populate it with Series types
+    /*
+    This function creates list of strings and populate it with years from 1968 to the current one
+    This function creates list of strings and populate it with numbers from 1 to 250
+    This function creates list of strings and populate it with Series types
+    */
     private void CreateArrayLists()
     {
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);                                   //This part gets actual year from phone's calendar
@@ -329,10 +343,17 @@ public class AddInformation extends AppCompatActivity {
             }
         }
 
+    public byte[] GetBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+
     //This part of code brings user back to previous activity and shows dialog confirming adding record to database (no database for now)
     //User can't save information while any of EditTexts is empty
     private void FinishAndSave()
     {
+        DataModel dataModel;
         if(addName.length() > 0)                                                                    //This if statement checks if there are more letters than 0 in addName
         {
             if(addWheelType.length() > 0)                                                           //This if statement checks if there are more letters than 0 in addWheelType
@@ -342,10 +363,16 @@ public class AddInformation extends AppCompatActivity {
                     Intent intent = new Intent(AddInformation.this, ListView.class);
                     startActivity(intent);
                     try {
+                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, addWheelType.getText().toString(), tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(imageBitmap));
                         Toast.makeText(AddInformation.this, "Added model: " + addName.getText().toString(), Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
+                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, addWheelType.getText().toString(), tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(imageBitmap));
+
                         Toast.makeText(AddInformation.this, "Model couldn't be added", Toast.LENGTH_SHORT).show();
                     }
+                    DataBaseHelper dataBaseHelper = new DataBaseHelper(AddInformation.this);
+                    boolean success = dataBaseHelper.addOne(dataModel);
+                    Toast.makeText(AddInformation.this, "Success " + success, Toast.LENGTH_SHORT).show();
 
                 }
                 else {addSeriesName.setError("Space empty"); Toast.makeText(AddInformation.this, "Series name is empty", Toast.LENGTH_SHORT).show();}
@@ -355,27 +382,25 @@ public class AddInformation extends AppCompatActivity {
         else {addName.setError("Space empty"); Toast.makeText(AddInformation.this, "Model name is empty", Toast.LENGTH_SHORT).show();}
     }
 
+    //This part of code allows user to pick a photo from gallery
     private void SelectFromGallery()
     {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
+    //This part of code is responsible for getting image url, setting chosen image as new background for ImageButton and converting image bitmap to byte array
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
+                Uri selectedImageUri = data.getData();                                              //This part gets url of the image
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    selectFromGalleryButton.setImageURI(selectedImageUri);
+                    selectFromGalleryButton.setImageURI(selectedImageUri);                          //This part updates image in ImageButton
+                    imageBitmap = ((BitmapDrawable)selectFromGalleryButton.getDrawable()).getBitmap();
                 }
             }
         }
