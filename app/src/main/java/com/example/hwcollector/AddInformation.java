@@ -1,6 +1,5 @@
 package com.example.hwcollector;
 
-import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -39,8 +38,9 @@ public class AddInformation extends AppCompatActivity {
    String[] arrayYearList, arraySeriesList, arraySeriesTypeList;
    CheckBox isZamac;
    int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, SELECT_PICTURE = 200;
-   Bitmap imageBitmap;
+   Bitmap imageBitmap, saveBitmap;
    byte[] imageByteArray;
+   BitmapDrawable drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,13 @@ public class AddInformation extends AppCompatActivity {
         CreateSeriesTypeArrayAdapter();
         AssignColors();
         ButtonListeners();
+        GetBitmap();
+    }
+
+    private void GetBitmap() {
+        selectFromGalleryButton.setBackgroundResource(R.drawable.noimage);
+        drawable = (BitmapDrawable) selectFromGalleryButton.getBackground();
+        saveBitmap = drawable.getBitmap();
     }
 
     //This part of code assigns white color as starting color of all ImageButtons responsible for color selecting
@@ -363,14 +370,13 @@ public class AddInformation extends AppCompatActivity {
                     Intent intent = new Intent(AddInformation.this, ListView.class);
                     startActivity(intent);
                     try {
-                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, addWheelType.getText().toString(), tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(imageBitmap));
+                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), addWheelType.getText().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(saveBitmap));
                         Toast.makeText(AddInformation.this, "Added model: " + addName.getText().toString(), Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
-                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, addWheelType.getText().toString(), tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(imageBitmap));
-
+                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), addWheelType.getText().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(saveBitmap));
                         Toast.makeText(AddInformation.this, "Model couldn't be added", Toast.LENGTH_SHORT).show();
                     }
-                    DataBaseHelper dataBaseHelper = new DataBaseHelper(AddInformation.this);
+                    HWDatabaseHelper dataBaseHelper = new HWDatabaseHelper(AddInformation.this);
                     boolean success = dataBaseHelper.addOne(dataModel);
                     Toast.makeText(AddInformation.this, "Success " + success, Toast.LENGTH_SHORT).show();
 
@@ -400,7 +406,6 @@ public class AddInformation extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();                                              //This part gets url of the image
                 if (null != selectedImageUri) {
                     selectFromGalleryButton.setImageURI(selectedImageUri);                          //This part updates image in ImageButton
-                    imageBitmap = ((BitmapDrawable)selectFromGalleryButton.getDrawable()).getBitmap();
                 }
             }
         }

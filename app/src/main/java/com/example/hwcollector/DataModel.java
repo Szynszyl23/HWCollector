@@ -10,30 +10,7 @@ public class DataModel {
     private String typeOfSeries;
     private String seriesName;
     private Boolean ifZamac;
-    private byte[] chosenPicture;
 
-    //constructor
-
-
-    public DataModel(int id, int mainColorInt, int secondColorInt, int thirdColorInt, String wheelType, int tireColorInt, int wheelColorInt, int rimColorInt, String numberInCollection, String modelName, String yearOfProduction, String typeOfSeries, String seriesName, Boolean ifZamac, byte[] chosenPicture) {
-        this.id = id;
-        this.mainColorInt = mainColorInt;
-        this.secondColorInt = secondColorInt;
-        this.thirdColorInt = thirdColorInt;
-        this.tireColorInt = tireColorInt;
-        this.wheelColorInt = wheelColorInt;
-        this.rimColorInt = rimColorInt;
-        this.numberInCollection = numberInCollection;
-        this.modelName = modelName;
-        this.yearOfProduction = yearOfProduction;
-        this.wheelType = wheelType;
-        this.typeOfSeries = typeOfSeries;
-        this.seriesName = seriesName;
-        this.ifZamac = ifZamac;
-        this.chosenPicture = chosenPicture;
-    }
-
-    //getters and setters
     public int getId() {
         return id;
     }
@@ -114,6 +91,14 @@ public class DataModel {
         this.yearOfProduction = yearOfProduction;
     }
 
+    public String getWheelType() {
+        return wheelType;
+    }
+
+    public void setWheelType(String wheelType) {
+        this.wheelType = wheelType;
+    }
+
     public String getTypeOfSeries() {
         return typeOfSeries;
     }
@@ -146,11 +131,28 @@ public class DataModel {
         this.chosenPicture = chosenPicture;
     }
 
-    public String getWheelType() {
-        return wheelType;
-    }
+    private byte[] chosenPicture;
 
-    public void setWheelType(String wheelType) {
+
+    //constructor
+    public DataModel(int id, int mainColorInt, int secondColorInt, int thirdColorInt, int tireColorInt, int wheelColorInt, int rimColorInt, String numberInCollection, String modelName, String yearOfProduction, String wheelType, String typeOfSeries, String seriesName, Boolean ifZamac, byte[] chosenPicture) {
+        this.id = id;
+        this.mainColorInt = mainColorInt;
+        this.secondColorInt = secondColorInt;
+        this.thirdColorInt = thirdColorInt;
+        this.tireColorInt = tireColorInt;
+        this.wheelColorInt = wheelColorInt;
+        this.rimColorInt = rimColorInt;
+        this.numberInCollection = numberInCollection;
+        this.modelName = modelName;
+        this.yearOfProduction = yearOfProduction;
         this.wheelType = wheelType;
+        this.typeOfSeries = typeOfSeries;
+        this.seriesName = seriesName;
+        this.ifZamac = ifZamac;
+        this.chosenPicture = chosenPicture;
     }
 }
+
+
+

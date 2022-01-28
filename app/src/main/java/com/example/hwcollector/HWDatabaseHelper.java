@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class HWDatabaseHelper extends SQLiteOpenHelper {
     public static final String HWTABLE = "HWTABLE";
     public static final String COLLECTION_NUMBER = "COLLECTION_NUMBER";
     public static final String MODEL_NAME = "MODEL_NAME";
@@ -25,13 +25,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ID = "ID";
     public static final String WHEEL_TYPE = "WHEEL_TYPE";
 
-    public DataBaseHelper(@Nullable Context context) {
+    public HWDatabaseHelper(@Nullable Context context) {
         super(context, "HWCollectorDatabase", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + HWTABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLLECTION_NUMBER + " TEXT, " + MODEL_NAME + " TEXT, " + YEAR_OF_PRODUCTION + " TEXT, " + IFZAMAC + " BOOL, " + MAIN_COLOR + " INT, " + SECOND_COLOR + " INT, " + WHEEL_TYPE + " STRING, " + THIRD_COLOR + " INT, " + TIRE_COLOR + " INT, " + WHEEL_COLOR + " INT, " + RIM_COLOR + " INT, " + SERIES_TYPE + " TEXT, " + SERIES_NAME + " TEXT, " + PHOTO + " BLOB)";
+        String createTableStatement = "CREATE TABLE " + HWTABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLLECTION_NUMBER + " TEXT, " + MODEL_NAME + " TEXT, " + YEAR_OF_PRODUCTION + " TEXT, " + IFZAMAC + " BOOL, " + MAIN_COLOR + " INT, " + SECOND_COLOR + " INT, " + WHEEL_TYPE + " TEXT, " + THIRD_COLOR + " INT, " + TIRE_COLOR + " INT, " + WHEEL_COLOR + " INT, " + RIM_COLOR + " INT, " + SERIES_TYPE + " TEXT, " + SERIES_NAME + " TEXT, " + PHOTO + " BLOB)";
         sqLiteDatabase.execSQL(createTableStatement);
 
     }
