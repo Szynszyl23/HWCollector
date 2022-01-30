@@ -8,7 +8,7 @@
 
 
     <ImageButton
-        android:id="@+id/backBT"
+        android:id="@+id/goBackBT"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="2dip"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/selectFromGalleryButton"
+                android:id="@+id/viewSelectedImage"
                 android:layout_width="300dp"
                 android:layout_height="225dp"
                 android:layout_margin="15dp"
@@ -69,14 +69,14 @@
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/selectFromGalleryButton"
+                android:layout_below="@+id/viewSelectedImage"
                 android:layout_margin="10dp"
                 android:text="PIECE NAME"
                 android:textColor="#1f1f1f"
                 android:textSize="27sp" />
 
             <TextView
-                android:id="@+id/seriesNumber"
+                android:id="@+id/seriesNumberEnd"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/nameText"
@@ -93,12 +93,12 @@
             <TextView
                 android:id="@+id/seriesNumberText"
                 android:layout_width="100dp"
-                android:layout_height="43dp"
-                android:layout_alignStart="@id/seriesNumber"
-                android:layout_alignTop="@id/seriesNumber"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/seriesNumberEnd"
+                android:layout_alignTop="@id/seriesNumberEnd"
+                android:layout_alignBottom="@+id/nameText"
                 android:layout_marginStart="-80dp"
-                android:layout_marginBottom="0dp"
-                android:textAlignment="center"
+                android:gravity="center"
                 android:textSize="20sp" />
 
             <TextView
@@ -153,7 +153,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/mainColor"
+                    android:id="@+id/mainColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -170,7 +170,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/secondColor"
+                    android:id="@+id/secondColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -187,7 +187,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/thirdColor"
+                    android:id="@+id/thirdColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -228,7 +228,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/zamacText"
+                android:id="@+id/zamacTextView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/colors"
@@ -241,13 +241,13 @@
                 />
 
             <TextView
-                android:id="@+id/zamacTextView"
+                android:id="@+id/zamacYesNoTextView"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/colors"
                 android:layout_alignBottom="@+id/colors"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/zamacText"
+                android:layout_toEndOf="@id/zamacTextView"
                 android:gravity="center"
                 android:textSize="27sp"
                 android:textColor="#1f1f1f"
@@ -264,7 +264,7 @@
                 android:textSize="27sp" />
 
             <TextView
-                android:id="@+id/wheelTypetextView"
+                android:id="@+id/wheelTypeShow"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/wheelTypeText"
@@ -279,7 +279,7 @@
                 android:id="@+id/wheelColors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/wheelTypetextView"
+                android:layout_below="@id/wheelTypeShow"
                 android:layout_margin="10dp"
                 android:text="WHEEL COLORS"
                 android:textColor="#1f1f1f"
@@ -295,7 +295,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/tireColor"
+                    android:id="@+id/tireColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -312,7 +312,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/wheelColor"
+                    android:id="@+id/wheelColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -329,7 +329,7 @@
                 android:background="#1f1f1f">
 
                 <ImageView
-                    android:id="@+id/rimColor"
+                    android:id="@+id/rimColorShow"
                     android:layout_width="117dp"
                     android:layout_height="117dp"
                     android:layout_centerInParent="true"
@@ -380,19 +380,19 @@
                 android:textSize="27sp" />
 
             <TextView
-                android:id="@+id/seriesNameEditText"
+                android:id="@+id/seriesNameShow"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/seriesTypeText"
+                android:layout_below="@+id/seriesTypeShow"
                 android:layout_margin="10dp"
                 android:inputType="text"
                 android:maxLength="50"
                 android:textColor="#1f1f1f"
                 android:textSize="22sp" />
-            
+
 
             <TextView
-                android:id="@+id/seriesTypeText"
+                android:id="@+id/seriesTypeShow"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/seriesNameText"
