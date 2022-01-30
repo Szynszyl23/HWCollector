@@ -2,10 +2,14 @@ package com.example.hwcollector;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HWDatabaseHelper extends SQLiteOpenHelper {
     public static final String HWTABLE = "HWTABLE";
@@ -70,4 +74,40 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+/*
+    public List<DataModel> getAllRecords()
+    {
+        List<DataModel> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM" + HWTABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString);
+        if(cursor.moveToFirst())
+        {
+            do {
+                int recordID = cursor.getInt(0);
+                String collectionNumber = cursor.getString(1);
+                String modelName = cursor.getString(2);
+                String yearOfProduction = cursor.getString(3);
+                boolean ifZamac = cursor.getInt(4) == 1 ? true: false;
+                int mainColor = cursor.getInt(5);
+                int secondColor = cursor.getInt(6);
+                String wheelType = cursor.getString(7);
+                int thirdColor = cursor.getInt(8);
+                int tireColor = cursor.getInt(9);
+                int wheelColor = cursor.getInt(10);
+                int rimColor = cursor.getInt(11);
+                String seriesType = cursor.getString(12);
+                String seriesName = cursor.getString(13);
+                byte [] photoByteArray = cursor.getBlob(14);
+
+                DataModel newModel = new DataModel(recordID, collectionNumber, modelName, yearOfProduction, ifZamac, mainColor, secondColor, wheelType, thirdColor, tireColor, wheelColor, rimColor, seriesType, seriesName, photoByteArray);
+            }while (cursor.moveToFirst());
+        }
+        else
+        {
+
+        }
+
+        return returnList;
+    }*/
 }
