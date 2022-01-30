@@ -94,12 +94,12 @@ public class AddInformation extends AppCompatActivity {
         letterCounter = findViewById(R.id.lettersCounter);
         letterCounter2 = findViewById(R.id.lettersCounter2);
         letterCounter3 = findViewById(R.id.lettersCounter3);
-        addName = findViewById(R.id.nameEditText);
-        addWheelType = findViewById(R.id.wheelTypeEditText);
+        addName = findViewById(R.id.nameTextView);
+        addWheelType = findViewById(R.id.wheelTypetextView);
         addSeriesName = findViewById(R.id.seriesNameEditText);
-        yearSpinner = findViewById(R.id.yearSpinner);
+        yearSpinner = findViewById(R.id.yearTextView);
         seriesNumberSpinner = findViewById(R.id.seriesNumberSpinner);
-        seriesTypeSpinner = findViewById(R.id.seriesTypeSpinner);
+        seriesTypeSpinner = findViewById(R.id.seriesTypeText);
         backButton = findViewById(R.id.backBT);
         selectFromGalleryButton = findViewById(R.id.selectFromGalleryButton);
         mainColorButton= findViewById(R.id.mainColor);
@@ -109,7 +109,7 @@ public class AddInformation extends AppCompatActivity {
         wheelsColorButton= findViewById(R.id.wheelColor);
         rimColorButton= findViewById(R.id.rimColor);
         finishAndSave = findViewById(R.id.finishBT);
-        isZamac = findViewById(R.id.isZamac);
+        isZamac = findViewById(R.id.zamacText);
     }
 
     //This part of code allows to show dialog window with color picker in it, after accepting, color of assigned ImageButton or Button changes to one chosen in color picker
