@@ -9,9 +9,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
@@ -59,9 +62,9 @@ public class AddInformation extends AppCompatActivity {
     }
 
     private void GetBitmap() {
-        selectFromGalleryButton.setBackgroundResource(R.drawable.noimage);
-        drawable = (BitmapDrawable) selectFromGalleryButton.getBackground();
-        saveBitmap = drawable.getBitmap();
+        imageBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.noimage);
+        selectFromGalleryButton.setImageBitmap(imageBitmap);
+        saveBitmap = imageBitmap;
     }
 
     //This part of code assigns white color as starting color of all ImageButtons responsible for color selecting
@@ -350,6 +353,7 @@ public class AddInformation extends AppCompatActivity {
             }
         }
 
+    //This part of code converts a bitmap from assigned ImageButton into a byte array
     public byte[] GetBytesFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -406,6 +410,12 @@ public class AddInformation extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();                                              //This part gets url of the image
                 if (null != selectedImageUri) {
                     selectFromGalleryButton.setImageURI(selectedImageUri);                          //This part updates image in ImageButton
+                    try {
+                        saveBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                        selectFromGalleryButton.setImageBitmap(saveBitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

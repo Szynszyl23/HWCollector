@@ -48,6 +48,7 @@
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
+                android:foreground="?android:selectableItemBackground"
                 />
 
             <TextView
