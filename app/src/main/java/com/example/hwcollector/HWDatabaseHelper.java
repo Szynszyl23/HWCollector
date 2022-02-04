@@ -25,9 +25,9 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
     public static final String RIM_COLOR = "RIM_COLOR";
     public static final String SERIES_TYPE = "SERIES_TYPE";
     public static final String SERIES_NAME = "SERIES_NAME";
-    public static final String PHOTO = "PHOTO";
     public static final String ID = "ID";
     public static final String WHEEL_TYPE = "WHEEL_TYPE";
+    public static final String TAMPO_NAME = "TAMPO_NAME";
 
     public HWDatabaseHelper(@Nullable Context context) {
         super(context, "HWCollectorDatabase", null, 1);
@@ -35,7 +35,7 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + HWTABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLLECTION_NUMBER + " TEXT, " + MODEL_NAME + " TEXT, " + YEAR_OF_PRODUCTION + " TEXT, " + IFZAMAC + " BOOL, " + MAIN_COLOR + " INT, " + SECOND_COLOR + " INT, " + WHEEL_TYPE + " TEXT, " + THIRD_COLOR + " INT, " + TIRE_COLOR + " INT, " + WHEEL_COLOR + " INT, " + RIM_COLOR + " INT, " + SERIES_TYPE + " TEXT, " + SERIES_NAME + " TEXT, " + PHOTO + " BLOB)";
+        String createTableStatement = "CREATE TABLE " + HWTABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLLECTION_NUMBER + " TEXT, " + MODEL_NAME + " TEXT, " + YEAR_OF_PRODUCTION + " TEXT, " + IFZAMAC + " BOOL, " + MAIN_COLOR + " INT, " + SECOND_COLOR + " INT, " + THIRD_COLOR + " INT, " + WHEEL_TYPE + " TEXT, " + TIRE_COLOR + " INT, " + WHEEL_COLOR + " INT, " + RIM_COLOR + " INT, " + SERIES_TYPE + " TEXT, " + SERIES_NAME + " TEXT, " + TAMPO_NAME + " TEXT)";
         sqLiteDatabase.execSQL(createTableStatement);
 
     }
@@ -63,7 +63,7 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
         cv.put(RIM_COLOR, dataModel.getRimColorInt());
         cv.put(SERIES_TYPE, dataModel.getTypeOfSeries());
         cv.put(SERIES_NAME, dataModel.getSeriesName());
-        cv.put(PHOTO, dataModel.getChosenPicture());
+        cv.put(TAMPO_NAME, dataModel.getTampoName());
         long insert = db.insert(HWTABLE, null, cv);
         if(insert == -1)
         {

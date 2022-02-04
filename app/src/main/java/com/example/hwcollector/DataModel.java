@@ -2,14 +2,17 @@ package com.example.hwcollector;
 
 public class DataModel {
 
-    private int id, mainColorInt, secondColorInt, thirdColorInt, tireColorInt, wheelColorInt, rimColorInt;
+    private int id;
     private String numberInCollection;
     private String modelName;
     private String yearOfProduction;
+    private Boolean ifZamac;
+    private int mainColorInt, secondColorInt, thirdColorInt;
     private String wheelType;
+    private int tireColorInt, wheelColorInt, rimColorInt;
     private String typeOfSeries;
     private String seriesName;
-    private Boolean ifZamac;
+    private String tampoName;
 
     public int getId() {
         return id;
@@ -17,54 +20,6 @@ public class DataModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getMainColorInt() {
-        return mainColorInt;
-    }
-
-    public void setMainColorInt(int mainColorInt) {
-        this.mainColorInt = mainColorInt;
-    }
-
-    public int getSecondColorInt() {
-        return secondColorInt;
-    }
-
-    public void setSecondColorInt(int secondColorInt) {
-        this.secondColorInt = secondColorInt;
-    }
-
-    public int getThirdColorInt() {
-        return thirdColorInt;
-    }
-
-    public void setThirdColorInt(int thirdColorInt) {
-        this.thirdColorInt = thirdColorInt;
-    }
-
-    public int getTireColorInt() {
-        return tireColorInt;
-    }
-
-    public void setTireColorInt(int tireColorInt) {
-        this.tireColorInt = tireColorInt;
-    }
-
-    public int getWheelColorInt() {
-        return wheelColorInt;
-    }
-
-    public void setWheelColorInt(int wheelColorInt) {
-        this.wheelColorInt = wheelColorInt;
-    }
-
-    public int getRimColorInt() {
-        return rimColorInt;
-    }
-
-    public void setRimColorInt(int rimColorInt) {
-        this.rimColorInt = rimColorInt;
     }
 
     public String getNumberInCollection() {
@@ -91,12 +46,68 @@ public class DataModel {
         this.yearOfProduction = yearOfProduction;
     }
 
+    public Boolean getIfZamac() {
+        return ifZamac;
+    }
+
+    public void setIfZamac(Boolean ifZamac) {
+        this.ifZamac = ifZamac;
+    }
+
+    public int getMainColorInt() {
+        return mainColorInt;
+    }
+
+    public void setMainColorInt(int mainColorInt) {
+        this.mainColorInt = mainColorInt;
+    }
+
+    public int getSecondColorInt() {
+        return secondColorInt;
+    }
+
+    public void setSecondColorInt(int secondColorInt) {
+        this.secondColorInt = secondColorInt;
+    }
+
+    public int getThirdColorInt() {
+        return thirdColorInt;
+    }
+
+    public void setThirdColorInt(int thirdColorInt) {
+        this.thirdColorInt = thirdColorInt;
+    }
+
     public String getWheelType() {
         return wheelType;
     }
 
     public void setWheelType(String wheelType) {
         this.wheelType = wheelType;
+    }
+
+    public int getTireColorInt() {
+        return tireColorInt;
+    }
+
+    public void setTireColorInt(int tireColorInt) {
+        this.tireColorInt = tireColorInt;
+    }
+
+    public int getWheelColorInt() {
+        return wheelColorInt;
+    }
+
+    public void setWheelColorInt(int wheelColorInt) {
+        this.wheelColorInt = wheelColorInt;
+    }
+
+    public int getRimColorInt() {
+        return rimColorInt;
+    }
+
+    public void setRimColorInt(int rimColorInt) {
+        this.rimColorInt = rimColorInt;
     }
 
     public String getTypeOfSeries() {
@@ -115,43 +126,35 @@ public class DataModel {
         this.seriesName = seriesName;
     }
 
-    public Boolean getIfZamac() {
-        return ifZamac;
+    public String getTampoName() {
+        return tampoName;
     }
 
-    public void setIfZamac(Boolean ifZamac) {
-        this.ifZamac = ifZamac;
+    public void setTampoName(String tampoName) {
+        this.tampoName = tampoName;
     }
 
-    public byte[] getChosenPicture() {
-        return chosenPicture;
-    }
-
-    public void setChosenPicture(byte[] chosenPicture) {
-        this.chosenPicture = chosenPicture;
-    }
-
-    private byte[] chosenPicture;
-
-
-    //constructor
-    public DataModel(int id, int mainColorInt, int secondColorInt, int thirdColorInt, int tireColorInt, int wheelColorInt, int rimColorInt, String numberInCollection, String modelName, String yearOfProduction, String wheelType, String typeOfSeries, String seriesName, Boolean ifZamac, byte[] chosenPicture) {
+    public DataModel(int id, String numberInCollection, String modelName, String yearOfProduction, Boolean ifZamac, int mainColorInt, int secondColorInt, int thirdColorInt, String wheelType, int tireColorInt, int wheelColorInt, int rimColorInt, String typeOfSeries, String seriesName, String tampoName) {
         this.id = id;
-        this.mainColorInt = mainColorInt;
-        this.secondColorInt = secondColorInt;
-        this.thirdColorInt = thirdColorInt;
-        this.tireColorInt = tireColorInt;
-        this.wheelColorInt = wheelColorInt;
-        this.rimColorInt = rimColorInt;
         this.numberInCollection = numberInCollection;
         this.modelName = modelName;
         this.yearOfProduction = yearOfProduction;
+        this.ifZamac = ifZamac;
+        this.mainColorInt = mainColorInt;
+        this.secondColorInt = secondColorInt;
+        this.thirdColorInt = thirdColorInt;
         this.wheelType = wheelType;
+        this.tireColorInt = tireColorInt;
+        this.wheelColorInt = wheelColorInt;
+        this.rimColorInt = rimColorInt;
         this.typeOfSeries = typeOfSeries;
         this.seriesName = seriesName;
-        this.ifZamac = ifZamac;
-        this.chosenPicture = chosenPicture;
+        this.tampoName = tampoName;
     }
+
+
+
+
 }
 
 

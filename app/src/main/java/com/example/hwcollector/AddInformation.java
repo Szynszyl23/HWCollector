@@ -35,30 +35,21 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddInformation extends AppCompatActivity {
 
-   TextView letterCounter, letterCounter2, letterCounter3;
-   EditText addName, addWheelType, addSeriesName;
+   TextView letterCounter, letterCounter2, letterCounter3, letterCounter4;
+   EditText addName, addWheelType, addSeriesName, addTampo;
    Spinner yearSpinner, seriesNumberSpinner, seriesTypeSpinner;
    ImageButton backButton, mainColorButton, secondColorButton, thirdColorButton, tireColorButton, wheelsColorButton, rimColorButton, selectFromGalleryButton;
    Button finishAndSave;
    String[] arrayYearList, arraySeriesList, arraySeriesTypeList;
    CheckBox isZamac;
    int mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, SELECT_PICTURE = 200;
-   Bitmap imageBitmap, saveBitmap;
-   byte[] imageByteArray;
-   BitmapDrawable drawable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_information);
 
-        try {
-            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
-            field.setAccessible(true);
-            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
         GetComponents();
         LetterCounters();
         CreateArrayLists();
@@ -67,14 +58,8 @@ public class AddInformation extends AppCompatActivity {
         CreateSeriesTypeArrayAdapter();
         AssignColors();
         ButtonListeners();
-        GetBitmap();
     }
 
-    private void GetBitmap() {
-        imageBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.noimage);
-        selectFromGalleryButton.setImageBitmap(imageBitmap);
-        saveBitmap = imageBitmap;
-    }
 
     //This part of code assigns white color as starting color of all ImageButtons responsible for color selecting
     private void AssignColors() {
@@ -96,21 +81,21 @@ public class AddInformation extends AppCompatActivity {
         wheelsColorButton.setOnClickListener(view -> ShowWheelColorPicker());
         rimColorButton.setOnClickListener(view -> ShowRimColorPicker());
         finishAndSave.setOnClickListener(view -> FinishAndSave());
-        selectFromGalleryButton.setOnClickListener(view -> SelectFromGallery());
     }
 
     private void GetComponents() {
         letterCounter = findViewById(R.id.lettersCounter);
         letterCounter2 = findViewById(R.id.lettersCounter2);
         letterCounter3 = findViewById(R.id.lettersCounter3);
+        letterCounter4 = findViewById(R.id.lettersCounter4);
         addName = findViewById(R.id.nameEditText);
         addWheelType = findViewById(R.id.wheelTypeEditText);
         addSeriesName = findViewById(R.id.seriesNameEditText);
+        addTampo = findViewById(R.id.tampoEditText);
         yearSpinner = findViewById(R.id.yearSpinner);
         seriesNumberSpinner = findViewById(R.id.seriesNumberSpinner);
         seriesTypeSpinner = findViewById(R.id.seriesTypeSpinner);
         backButton = findViewById(R.id.backBT);
-        selectFromGalleryButton = findViewById(R.id.selectFromGalleryButton);
         mainColorButton= findViewById(R.id.mainColor);
         secondColorButton= findViewById(R.id.secondColor);
         thirdColorButton= findViewById(R.id.thirdColor);
@@ -234,9 +219,11 @@ public class AddInformation extends AppCompatActivity {
         letterCounter.setText("50/50");
         letterCounter2.setText("50/50");
         letterCounter3.setText("50/50");
+        letterCounter4.setText("50/50");
         addName.addTextChangedListener(editTextWatcherForName);
         addWheelType.addTextChangedListener(editTextWatcherForWheelType);
         addSeriesName.addTextChangedListener(editTextWatcherForSeriesName);
+        addTampo.addTextChangedListener(editTextWatcherForTampo);
     }
 
     //This function creates ArrayAdapter that allows to populate yearSpinner with records from arrayYearList
@@ -334,6 +321,24 @@ public class AddInformation extends AppCompatActivity {
         }
     };
 
+    //This part of code enables letter counting from assigned EditText and displaying results in assigned TextView to show user how many character can be still used
+    private final TextWatcher editTextWatcherForTampo = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            letterCounter4.setText(50 - editable.toString().length() + "/50");                      //This part shows numbers from 50 to 0 updating after every character typed or deleted
+        }
+    };
+
     /*
     This function creates list of strings and populate it with years from 1968 to the current one
     This function creates list of strings and populate it with numbers from 1 to 250
@@ -362,13 +367,6 @@ public class AddInformation extends AppCompatActivity {
             }
         }
 
-    //This part of code converts a bitmap from assigned ImageButton into a byte array
-    public byte[] GetBytesFromBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
-
     //This part of code brings user back to previous activity and shows dialog confirming adding record to database (no database for now)
     //User can't save information while any of EditTexts is empty
     private void FinishAndSave()
@@ -378,21 +376,25 @@ public class AddInformation extends AppCompatActivity {
         {
             if(addWheelType.length() > 0)                                                           //This if statement checks if there are more letters than 0 in addWheelType
             {
-                if (addSeriesName.length() > 0)                                                     //This if statement checks if there are more letters than 0 in addSeriesName
+                if(addSeriesName.length() > 0)                                                     //This if statement checks if there are more letters than 0 in addSeriesName
                 {
-                    Intent intent = new Intent(AddInformation.this, ListView.class);
-                    startActivity(intent);
-                    try {
-                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), addWheelType.getText().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(saveBitmap));
-                        Toast.makeText(AddInformation.this, "Added model: " + addName.getText().toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        dataModel = new DataModel(0, mainDefaultColor, secondDefaultColor, thirdDefaultColor, tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), addWheelType.getText().toString(), seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), isZamac.isActivated(), GetBytesFromBitmap(saveBitmap));
-                        Toast.makeText(AddInformation.this, "Model couldn't be added", Toast.LENGTH_SHORT).show();
-                    }
-                    HWDatabaseHelper dataBaseHelper = new HWDatabaseHelper(AddInformation.this);
-                    boolean success = dataBaseHelper.addOne(dataModel);
-                    Toast.makeText(AddInformation.this, "Success " + success, Toast.LENGTH_SHORT).show();
+                    if (addTampo.length() > 0)
+                    {
+                        Intent intent = new Intent(AddInformation.this, ListView.class);
+                        startActivity(intent);
+                        try {
+                            dataModel = new DataModel(0, seriesNumberSpinner.getSelectedItem().toString(), addName.getText().toString(), yearSpinner.getSelectedItem().toString(), isZamac.isActivated(), mainDefaultColor, secondDefaultColor, thirdDefaultColor, addWheelType.getText().toString(), tireDefaultColor, wheelDefaultColor, rimDefaultColor, seriesTypeSpinner.getSelectedItem().toString(), addSeriesName.getText().toString(), addTampo.getText().toString());
+                            Toast.makeText(AddInformation.this, "Added model: " + addName.getText().toString(), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            dataModel = new DataModel(0, "error", "error", "error", false, -1, -1, -1, "error", -1, -1, -1, "error", "error", "error");
+                            Toast.makeText(AddInformation.this, "Model couldn't be added", Toast.LENGTH_SHORT).show();
+                        }
+                        HWDatabaseHelper dataBaseHelper = new HWDatabaseHelper(AddInformation.this);
+                        boolean success = dataBaseHelper.addOne(dataModel);
+                        Toast.makeText(AddInformation.this, "Success " + success, Toast.LENGTH_SHORT).show();
 
+                    }
+                    else {addTampo.setError("Space empty"); Toast.makeText(AddInformation.this, "Tampo name is empty", Toast.LENGTH_SHORT).show();}
                 }
                 else {addSeriesName.setError("Space empty"); Toast.makeText(AddInformation.this, "Series name is empty", Toast.LENGTH_SHORT).show();}
             }
@@ -401,33 +403,5 @@ public class AddInformation extends AppCompatActivity {
         else {addName.setError("Space empty"); Toast.makeText(AddInformation.this, "Model name is empty", Toast.LENGTH_SHORT).show();}
     }
 
-    //This part of code allows user to pick a photo from gallery
-    private void SelectFromGallery()
-    {
-        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-    //This part of code is responsible for getting image url, setting chosen image as new background for ImageButton and converting image bitmap to byte array
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageUri = data.getData();                                              //This part gets url of the image
-                if (null != selectedImageUri) {
-                    selectFromGalleryButton.setImageURI(selectedImageUri);                          //This part updates image in ImageButton
-                    try {
-                        saveBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                        selectFromGalleryButton.setImageBitmap(saveBitmap);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
     }
 

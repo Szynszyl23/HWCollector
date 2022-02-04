@@ -55,21 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/viewSelectedImage"
-                android:layout_width="300dp"
-                android:layout_height="225dp"
-                android:layout_margin="15dp"
-                android:background="@null"
-                android:foreground="?android:selectableItemBackground"
-                android:padding="10dp"
-                android:scaleType="fitCenter" />
-
             <TextView
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/viewSelectedImage"
                 android:layout_margin="10dp"
                 android:text="PIECE NAME"
                 android:textColor="#1f1f1f"
@@ -111,8 +100,6 @@
                 android:maxLength="50"
                 android:textColor="#1f1f1f"
                 android:textSize="22sp" />
-
-
 
             <TextView
                 android:id="@+id/yearOfProduction"
@@ -399,6 +386,29 @@
                 android:layout_margin="10dp"
                 android:textColor="#1f1f1f"
                 android:textSize="22sp"
+                />
+
+            <TextView
+                android:id="@+id/tampoShow"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tampoText"
+                android:layout_margin="10dp"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="22sp"
+                android:textColor="#1f1f1f"
+                />
+
+            <TextView
+                android:id="@+id/tampoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/seriesNameShow"
+                android:layout_margin="10dp"
+                android:text="TAMPO"
+                android:textSize="27sp"
+                android:textColor="#1f1f1f"
                 />
 
         </RelativeLayout>
