@@ -259,6 +259,7 @@ public class AddInformation extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialog, id) -> {
                     Intent intent = new Intent(AddInformation.this, ListView.class);
                     startActivity(intent);
+                    finish();
                 })
                 .setNegativeButton("No", (dialog, id) -> {
                     // CANCEL

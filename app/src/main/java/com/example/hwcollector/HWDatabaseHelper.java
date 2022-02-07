@@ -46,8 +46,7 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(DataModel dataModel)
-    {
+    public boolean addOne(DataModel dataModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLLECTION_NUMBER, dataModel.getNumberInCollection());
@@ -65,49 +64,63 @@ public class HWDatabaseHelper extends SQLiteOpenHelper {
         cv.put(SERIES_NAME, dataModel.getSeriesName());
         cv.put(TAMPO_NAME, dataModel.getTampoName());
         long insert = db.insert(HWTABLE, null, cv);
-        if(insert == -1)
-        {
+        if (insert == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
-/*
+
+    //This part of code is responsible for selecting all records from database in ascending order by name of the model
     public List<DataModel> getAllRecords()
     {
         List<DataModel> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM" + HWTABLE;
+        String queryString = "SELECT * FROM " + HWTABLE + " ORDER BY " + MODEL_NAME + " ASC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString);
+        Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst())
         {
-            do {
-                int recordID = cursor.getInt(0);
-                String collectionNumber = cursor.getString(1);
-                String modelName = cursor.getString(2);
-                String yearOfProduction = cursor.getString(3);
-                boolean ifZamac = cursor.getInt(4) == 1 ? true: false;
-                int mainColor = cursor.getInt(5);
-                int secondColor = cursor.getInt(6);
-                String wheelType = cursor.getString(7);
-                int thirdColor = cursor.getInt(8);
-                int tireColor = cursor.getInt(9);
-                int wheelColor = cursor.getInt(10);
-                int rimColor = cursor.getInt(11);
-                String seriesType = cursor.getString(12);
-                String seriesName = cursor.getString(13);
-                byte [] photoByteArray = cursor.getBlob(14);
+            do
+                {
+                   int modelID = cursor.getInt(0);
+                   String collectionNumber = cursor.getString(1);
+                   String modelName = cursor.getString(2);
+                   String yearOfProduction = cursor.getString(3);
+                   boolean ifZamac = cursor.getInt(4) == 1 ? true: false;
+                   int mainColor = cursor.getInt(5);
+                   int secondColor = cursor.getInt(6);
+                   int thirdColor = cursor.getInt(7);
+                   String wheelType = cursor.getString(8);
+                   int tireColor = cursor.getInt(9);
+                   int wheelColor = cursor.getInt(10);
+                   int rimColor = cursor.getInt(11);
+                   String seriesType = cursor.getString(12);
+                   String seriesName = cursor.getString(13);
+                   String tampo = cursor.getString(14);
 
-                DataModel newModel = new DataModel(recordID, collectionNumber, modelName, yearOfProduction, ifZamac, mainColor, secondColor, wheelType, thirdColor, tireColor, wheelColor, rimColor, seriesType, seriesName, photoByteArray);
-            }while (cursor.moveToFirst());
+                   DataModel newRecord = new DataModel(modelID,
+                           collectionNumber,
+                           modelName,
+                           yearOfProduction,
+                           ifZamac,
+                           mainColor,
+                           secondColor,
+                           thirdColor,
+                           wheelType,
+                           tireColor,
+                           wheelColor,
+                           rimColor,
+                           seriesType,
+                           seriesName,
+                           tampo);
+                   returnList.add(newRecord);
+                } while (cursor.moveToNext());
         }
         else
         {
-
         }
-
+        cursor.close();
+        db.close();
         return returnList;
-    }*/
+    }
 }
